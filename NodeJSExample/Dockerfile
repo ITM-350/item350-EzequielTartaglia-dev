@@ -1,18 +1,10 @@
-# Use a Node.js base image
-FROM node:14
+FROM node:current-slim
 
-# Set the working directory
 WORKDIR /usr/src/app
-
-# Copy dependency files
-COPY package*.json ./
+COPY package.json .
 RUN npm install
 
-# Copy the rest of the application
+EXPOSE 8080
+CMD [ "npm", "start" ]
+
 COPY . .
-
-# Expose the port the app runs on
-EXPOSE 80
-
-# Define the command to run the app
-CMD ["npm", "start"]
