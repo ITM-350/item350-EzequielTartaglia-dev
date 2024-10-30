@@ -27,4 +27,4 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker buildx build --file Dockerfile --push --tag ezequieltartaglia/itm350-ezequieltartaglia-bb:latest .
+          docker buildx build --file Dockerfile --push --tag ezequieltartaglia/itm350-ezequieltartaglia-bb:1.0 .
