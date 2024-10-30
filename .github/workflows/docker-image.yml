@@ -22,10 +22,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      - name: Change to bulletin-board-app directory
+        run: cd bulletin-board-app
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./bulletin-board-app
-          file: ./bulletin-board-app/Dockerfile
-          push: true
-          tags: ezequieltartaglia/itm350-ezequieltartaglia-bb:latest
+        run: |
+          docker buildx build --file Dockerfile --push --tag ezequieltartaglia/itm350-ezequieltartaglia-bb:latest .
