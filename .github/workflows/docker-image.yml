@@ -44,6 +44,7 @@ jobs:
           file: ./bulletin-board-app/Dockerfile  # Ruta al Dockerfile
           push: true
           tags: |
-            ${{ steps.meta.outputs.tags }}  # Etiquetas dinámicas generadas
             ${{ env.REPO_NAME }}:latest  # Etiqueta predeterminada `latest`
-          labels: ${{ steps.meta.outputs.labels }}
+            ${{ env.REPO_NAME }}:${{ github.sha }}  # Etiqueta basada en SHA del commit
+          labels: |
+            "project=bulletin-board-app"
