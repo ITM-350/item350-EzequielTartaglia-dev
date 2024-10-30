@@ -13,13 +13,15 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "The PR was merged"
-
       - name: Check out the repo
         uses: actions/checkout@v4
 
       - run: |
+          echo "The PR was merged"
+      
+      - name: Install dependencies
+        run: |
+          cd bulletin-board-app
           npm install
 
       - name: Log in to Docker Hub
@@ -36,15 +38,13 @@ jobs:
           tags: |
             type=sha
             type=ref,event=branch
-      
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./bulletin-board-app   # Apunta al subdirectorio
-          file: ./bulletin-board-app/Dockerfile  # Ruta al Dockerfile
+          context: ./bulletin-board-app   # Apunta al subdirectorio con el Dockerfile
+          file: ./bulletin-board-app/Dockerfile
           push: true
           tags: |
-            ${{ env.REPO_NAME }}:latest  # Etiqueta predeterminada `latest`
+            ${{ env.REPO_NAME }}:latest  # Etiqueta `latest` predeterminada
             ${{ env.REPO_NAME }}:${{ github.sha }}  # Etiqueta basada en SHA del commit
-          labels: |
-            "project=bulletin-board-app"
