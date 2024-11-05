@@ -1,10 +1,15 @@
+// jest.config.js
 module.exports = {
+  collectCoverage: true, // Asegúrate de que esto esté habilitado
+  coverageDirectory: 'coverage', // Directorio donde se almacenará el informe de cobertura
+  collectCoverageFrom: [
+    'src/**/*.js', // Incluye todos los archivos .js en la carpeta src
+    'backend/**/*.js', // Incluye todos los archivos .js en la carpeta backend
+  ],
   coverageThreshold: {
-    // Set coverage threshold for all .js files in the src directory
     './src/*.js': {
       lines: 80,
     },
-    // Set coverage threshold for all .js files in the backend directory
     './backend/*.js': {
       lines: 80,
     },
