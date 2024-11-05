@@ -1,0 +1,41 @@
+name: Coverage Check
+
+on:
+  pull_request:
+    branches: 
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          cd bulletin-board-app  # Cambia al directorio correcto
+          npm install
+
+      - name: Run tests and check coverage
+        run: |
+          cd bulletin-board-app 
+          npm test -- --coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: bulletin-board-app/coverage 
+          
+      - name: Check coverage threshold
+        run: |
+          coverage_percentage=$(cat bulletin-board-app/coverage/coverage-summary.json | jq '.total.lines.pct')  # Ajusta según tu herramienta
+          if (( $(echo "$coverage_percentage < 50" | bc -l) )); then
+            echo "Coverage is below 50%."
+            exit 1
+          fi
