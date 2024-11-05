@@ -1,5 +1,6 @@
 // jest.config.js
 module.exports = {
+
   collectCoverage: true, // Asegúrate de que esto esté habilitado
   coverageDirectory: 'coverage', // Directorio donde se almacenará el informe de cobertura
   collectCoverageFrom: [
@@ -14,4 +15,8 @@ module.exports = {
       lines: 80,
     },
   },
+  collectCoverageFrom: [
+    'src/**/*.js', 
+    'backend/**/*.js', 
+  ],
 };
