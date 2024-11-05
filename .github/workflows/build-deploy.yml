@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd bulletin-board-app  # Cambia al directorio correcto
+          cd bulletin-board-app 
           npm install
 
       - name: Log in to Docker Hub
