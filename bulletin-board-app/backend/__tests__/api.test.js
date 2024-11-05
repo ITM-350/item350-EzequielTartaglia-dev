@@ -1,24 +1,9 @@
-// api.test.js
 const api = require('../api.js');
 
-const eventsData = [ 
-  {
-    id: 1,
-    title: 'Docker Workshop',
-    detail: 'Linuxing in London',
-    date: '2017-11-21',
-  },
-  {
-    id: 2,
-    title: 'WinOps #17',
-    detail: 'WinOps London',
-    date: '2017-11-21',
-  },
-  {
-    id: 3,
-    title: 'Docker London',
-    date: '2017-11-13',
-  },
+const eventsData = [
+  { date: "2017-11-21", detail: "Linuxing in London", id: 1, title: "Docker Workshop" },
+  { date: "2017-11-21", detail: "WinOps London", id: 2, title: "WinOps #17" },
+  { date: "2017-11-13", id: 3, title: "Docker London" }
 ];
 
 describe('API Controller', () => {
@@ -43,7 +28,7 @@ describe('API Controller', () => {
 
     api.event(req, res);
 
-    expect(res.json).toHaveBeenCalledWith(eventsData[eventId]);
+    expect(res.json).toHaveBeenCalledWith(eventsData[eventId]); 
   });
 
   it('should return undefined for an invalid event ID', () => {
