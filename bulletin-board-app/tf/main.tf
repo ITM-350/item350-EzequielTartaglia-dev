@@ -57,10 +57,10 @@ resource "aws_security_group" "allow_ssh_http" {
 
 # EC2 Instance Configuration
 resource "aws_instance" "docker_host" {
-  ami                    = "ami-0f19a1cf9c1469fd6" # AMI ID proporcionada
+  ami                    = "ami-00b44d3dbe1f81742"
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.subnet_a.id
-  key_name               = "docker-host-key-pair" # Asegúrate de tener esta clave configurada
+  key_name               = "docker-host-key-pair" 
   associate_public_ip_address = true
   security_groups        = [aws_security_group.allow_ssh_http.name]
   
@@ -68,7 +68,6 @@ resource "aws_instance" "docker_host" {
     Name = "docker-host"
   }
 
-  # Con esta configuración, la instancia se detendría si se termina el ciclo
   lifecycle {
     prevent_destroy = true
   }
