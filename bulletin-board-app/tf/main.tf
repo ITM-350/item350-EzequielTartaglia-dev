@@ -1,6 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
 
 # VPC Configuration (Si no tienes una VPC existente)
 resource "aws_vpc" "main" {
