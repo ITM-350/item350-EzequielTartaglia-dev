@@ -122,6 +122,3 @@ resource "aws_lb" "ecs_alb" {
   enable_cross_zone_load_balancing = true
 }
 
-output "load_balancer_url" {
-  value = format("Open this URL to see your app http://%s/", try(aws_lb.ecs_alb.dns_name, null))
-}
