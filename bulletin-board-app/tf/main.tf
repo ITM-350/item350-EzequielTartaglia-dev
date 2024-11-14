@@ -118,13 +118,11 @@ resource "aws_autoscaling_group" "asg" {
 
   launch_configuration = aws_launch_configuration.my_launch_configuration.id
 
-  tags = [
-    {
-      key                 = "Name"
-      value               = "my-instance"
-      propagate_at_launch = true
-    }
-  ]
+  tag {
+    key                 = "Name"
+    value               = "my-instance"
+    propagate_at_launch = true
+  }
 }
 
 # Load Balancer Configuration
