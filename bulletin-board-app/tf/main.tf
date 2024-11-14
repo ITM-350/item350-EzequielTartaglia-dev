@@ -88,19 +88,40 @@ resource "aws_iam_role_policy_attachment" "ecs_instance_policy_attach" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerServiceforEC2Role"
 }
 
-# Auto Scaling Group (Si usas Auto Scaling)
 resource "aws_autoscaling_group" "asg" {
   desired_capacity     = 1
-  max_size             = 2
+  max_size             = 3
   min_size             = 1
-  vpc_zone_identifier  = [aws_subnet.main.id]
-  health_check_type    = "EC2"
-  health_check_grace_period = 300
+  vpc_zone_identifier  = [aws_subnet.subnet_id.id]
 
-  launch_configuration {
-    instance_type        = "t2.micro"
-    ami                  = "ami-0f19a1cf9c1469fd6"
-    key_name             = "docker-host-key-pair"
-    security_groups      = [aws_security_group.allow_ssh_http.name]
-  }
+  launch_configuration = aws_launch_configuration.my_launch_configuration.id
+
+  tags = [
+    {
+      key                 = "Name"
+      value               = "my-instance"
+      propagate_at_launch = true
+    }
+  ]
+}
+
+resource "aws_launch_configuration" "my_launch_configuration" {
+  name          = "my-launch-config"
+  image_id      = "ami-0e252be8f4dfa2c0d"
+  instance_type = "t2.micro"
+  security_groups = [aws_security_group.sg.id]
+}
+
+resource "aws_lb" "ecs_alb" {
+  name               = "ecs-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.sg.id]
+  subnets            = aws_subnet.subnet_ids
+  enable_deletion_protection = false
+  enable_cross_zone_load_balancing = true
+}
+
+output "load_balancer_url" {
+  value = format("Open this URL to see your app http://%s/", try(aws_lb.ecs_alb.dns_name, null))
 }
