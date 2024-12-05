@@ -18,7 +18,7 @@ exports.event = function (req, res) {
   }
 };
 
-const statusCodes = require('http'). STATUS_CODES;
+/* const statusCodes = require('http'). STATUS_CODES;
 const httpConstants = require('http2').constants;
 Cree una instancia de un cliente de documentos de DynamoDB con el SDK
 const { docClient, getCommand, deleteCommand, putCommand, scanCommand } = require("./aws");
@@ -84,5 +84,5 @@ res.send(error);
             }
         );
   }
-  };
+  }; */
   
