@@ -135,3 +135,22 @@ resource "aws_lb" "ecs_alb" {
   enable_cross_zone_load_balancing = true
 }
 
+# DynamoDB Configuration
+resource "aws_dynamodb_table" "event-table" {
+  name           = "event"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "id"
+  
+
+atributo {
+nombre = "id"
+tipo = "N"
+  }
+
+tags = {
+Nombre = "tabla de eventos"
+Entorno = "producción"
+  }
+}
