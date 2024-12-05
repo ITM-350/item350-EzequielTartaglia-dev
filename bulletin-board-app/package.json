@@ -23,7 +23,7 @@
     "@aws-sdk/lib-dynamodb": "^3.468.0",
     "@jest-mock/express": "^2.0.2",
     "aws-sdk": "^2.1499.0",
-    "mock": "^0.1.1",
+    "mock": "^0.1.1"
   },
   "scripts": {
     "start": "node server.js",
